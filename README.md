@@ -8,6 +8,10 @@ Available actions are:
 * save to a file for later inspection
 * discard
 
+## Installation
+
+`go install github.com/ulfurinn/amqp-dead-letter@latest`
+
 ## Usage
 
 `AMQP_URL=amqp://host:port/vhost amqp-dead-letter DL.queue.name`

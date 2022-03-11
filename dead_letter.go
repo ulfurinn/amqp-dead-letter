@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"os"
 	"os/signal"
 	"sort"
@@ -23,26 +22,26 @@ const (
 	actionDiscard
 )
 
+var errUsage = errors.New("usage: amqp-dead-letter <url> <queue>")
+
 func main() {
 	if err := run(); err != nil {
-		log.Println(err)
+		fmt.Println(err)
 		os.Exit(1)
 	}
 }
 
 func run() error {
-	url := os.Getenv("AMQP_URL")
+	if len(os.Args) != 3 {
+		return errUsage
+	}
+
+	url, queue := os.Args[1], os.Args[2]
 	if url == "" {
-		return errors.New("AMQP_URL must be set")
+		return errUsage
 	}
-
-	if len(os.Args) < 2 {
-		return errors.New("queue name not provided")
-	}
-
-	queue := os.Args[1]
 	if queue == "" {
-		return errors.New("queue name not provided")
+		return errUsage
 	}
 
 	conn, err := amqp.Dial(url)

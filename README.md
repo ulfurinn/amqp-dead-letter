@@ -14,4 +14,4 @@ Available actions are:
 
 ## Usage
 
-`AMQP_URL=amqp://host:port/vhost amqp-dead-letter DL.queue.name`
+`amqp-dead-letter amqp://host:port/vhost DL.queue.name`
